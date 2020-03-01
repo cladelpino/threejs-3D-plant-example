@@ -14,18 +14,27 @@
         <script src="js/OrbitControls.js"></script>
         <!-- <script type="text/javascript" src="/testfiles/200-AL-001_2.json"></script> -->
         <script>
-
-            function destacar(e){
-                console.log(e.target);
-            }
-
             var scene = new THREE.Scene();
             var renderer = new THREE.WebGLRenderer({ alpha: true });
-            renderer.setSize(200,800);
+            renderer.setSize(800,400);
             var rendererNode = document.body.appendChild( renderer.domElement );
             var controls;
             var camera;
             var materialDestacado = new THREE.MeshPhongMaterial( { color: 0x211237 , wireframe: false} );
+
+            var oldMat;
+            var nowDest;
+            function destacar(e){
+                if(typeof nowDest !== 'undefined'){
+                    nowDest.material = oldMat;
+                }
+                x = scene.getChildByName(e.target.innerHTML);
+                console.log(x);
+                oldMat = x.material;
+                nowDest = x;
+                x.material = materialDestacado;
+            }
+
             // Instantiate a loader
             var loader = new THREE.GLTFLoader();
             // Load a glTF resource
