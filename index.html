@@ -14,6 +14,11 @@
         <script src="js/OrbitControls.js"></script>
         <!-- <script type="text/javascript" src="/testfiles/200-AL-001_2.json"></script> -->
         <script>
+
+            function destacar(e){
+                console.log(e.target);
+            }
+
             var scene = new THREE.Scene();
             var renderer = new THREE.WebGLRenderer({ alpha: true });
             renderer.setSize(200,800);
@@ -41,6 +46,7 @@
                     // scene.add( new THREE.AmbientLight(0xfafafa) );
                     scene.traverse(function( child ) {if ( child instanceof THREE.Mesh ) {
                         var btn = document.createElement("BUTTON");
+                        btn.addEventListener('click', destacar );
                         btn.innerHTML = child.name;
                         document.body.insertBefore(btn,rendererNode);
                     }});
