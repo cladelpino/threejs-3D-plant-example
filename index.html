@@ -28,7 +28,7 @@
                 if(typeof nowDest !== 'undefined'){
                     nowDest.material = oldMat;
                 }
-                x = scene.getChildByName(e.target.innerHTML);
+                x = scene.getObjectByName(e.target.innerHTML);
                 console.log(x);
                 oldMat = x.material;
                 nowDest = x;
