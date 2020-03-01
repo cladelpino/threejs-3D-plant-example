@@ -20,7 +20,7 @@
             document.body.appendChild( renderer.domElement );
             var controls;
             var camera;
-            var controls;
+            var materialDestacado = new THREE.MeshPhongMaterial( { color: 0x211237 , wireframe: false} );
             // Instantiate a loader
             var loader = new THREE.GLTFLoader();
             // Load a glTF resource
@@ -39,6 +39,7 @@
                     scene.add(camera);
                     camera.updateProjectionMatrix();
                     scene.add( new THREE.AmbientLight(0xfafafa) );
+                    scene.traverse(function( child ) {console.log(child)});
                     animate();
                 },
                 // called while loading is progressing
