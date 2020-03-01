@@ -12,11 +12,11 @@
         <script src="js/three.js"></script>
         <script src="js/GLTFLoader.js"></script>
         <script src="js/OrbitControls.js"></script>
-        <!-- <script type="text/javascript" src="/testfiles/200-AL-001_2.json"></script> -->
+        <script type="text/javascript" src="testfiles/DataDef.js"></script> -->
         <script>
             var scene = new THREE.Scene();
             var renderer = new THREE.WebGLRenderer({ alpha: true });
-            renderer.setSize(800,400);
+            renderer.setSize(1200,800);
             var rendererNode = document.body.appendChild( renderer.domElement );
             var controls;
             var camera;
@@ -29,10 +29,11 @@
                     nowDest.material = oldMat;
                 }
                 x = scene.getObjectByName(e.target.innerHTML);
-                console.log(x);
+                // console.log(x);
                 oldMat = x.material;
                 nowDest = x;
                 x.material = materialDestacado;
+                controls.target.set( data[x.name][0], data[x.name][1], data[x.name][2] );
             }
 
             // Instantiate a loader
@@ -49,7 +50,7 @@
                     controls = new THREE.OrbitControls( camera, renderer.domElement );
                     controls.rotateSpeed = 0.04;
                     controls.autoRotate = true;
-                    controls.target.set( 0, 0, 0 );
+                    controls.target.set( data["Master"][0], data["Master"][1], data["Master"][2] );
                     scene.add(camera);
                     camera.updateProjectionMatrix();
                     // scene.add( new THREE.AmbientLight(0xfafafa) );
