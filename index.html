@@ -28,12 +28,16 @@
                 if(typeof nowDest !== 'undefined'){
                     nowDest.material = oldMat;
                 }
-                x = scene.getObjectByName(e.target.innerHTML);
+                var name = e.target.innerHTML;
+                var x = scene.getObjectByName(name);
                 // console.log(x);
                 oldMat = x.material;
                 nowDest = x;
                 x.material = materialDestacado;
-                controls.target.set( data[x.name][0], data[x.name][1], data[x.name][2] );
+                console.log(name);
+                controls.target.set( data[name]["center"][0], data[name]["center"][1], data[name]["center"][2] );
+                camera.position.set( data[name]["center"][0] + 2*data[name]["length"][0], data[name]["center"][1] + 2*data[name]["length"][1], data[name]["center"][2]+ 2*data[name]["length"][2] );
+                camera.updateProjectionMatrix();
             }
 
             // Instantiate a loader
@@ -50,9 +54,10 @@
                     controls = new THREE.OrbitControls( camera, renderer.domElement );
                     controls.rotateSpeed = 0.04;
                     controls.autoRotate = true;
-                    controls.target.set( data["Master"][0], data["Master"][1], data["Master"][2] );
-                    scene.add(camera);
+                    controls.target.set( data["Master"]["center"][0], data["Master"]["center"][1], data["Master"]["center"][2] );
+                    camera.position.set( data["Master"]["center"][0] + 2*data["Master"]["length"][0], data["Master"]["center"][1] + 2*data["Master"]["length"][1], data["Master"]["center"][2]+ 2*data["Master"]["length"][2] )
                     camera.updateProjectionMatrix();
+                    scene.add(camera);
                     // scene.add( new THREE.AmbientLight(0xfafafa) );
                     scene.traverse(function( child ) {if ( child instanceof THREE.Mesh ) {
                         var btn = document.createElement("BUTTON");
@@ -64,7 +69,8 @@
                 },
                 // called while loading is progressing
                 function ( xhr ) {
-                    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+                    console.log(xhr.loaded/xhr.total);
+                    // console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
                 },
                 // called when loading has errors
                 function ( error ) {
