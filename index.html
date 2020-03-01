@@ -33,11 +33,12 @@
                     // scene.add( gltf.cameras[0]);
                     camera = gltf.cameras[0];
                     controls = new THREE.OrbitControls( camera, renderer.domElement );
-                    controls.rotateSpeed = 0.1;
+                    controls.rotateSpeed = 0.04;
                     controls.autoRotate = true;
                     controls.target.set( 0, 0, 0 );
                     scene.add(camera);
                     camera.updateProjectionMatrix();
+                    scene.add( new THREE.AmbientLight(0xfafafa) );
                     animate();
                 },
                 // called while loading is progressing
