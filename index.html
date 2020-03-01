@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Ejemplo Visualización</title>
+        <style>
+            body { margin: 0; }
+            canvas { display: block; }
+        </style>
+    </head>
+    <body>
+        <script src="js/three.js"></script>
+        <script src="js/GLTFLoader.js"></script>
+        <script src="js/OrbitControls.js"></script>
+        <!-- <script type="text/javascript" src="/testfiles/200-AL-001_2.json"></script> -->
+        <script>
+            var scene = new THREE.Scene();
+            var renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+            var controls;
+            var camera;
+            var controls;
+            // Instantiate a loader
+            var loader = new THREE.GLTFLoader();
+            // Load a glTF resource
+            loader.load(
+                // resource URL
+                './testfiles/scene.glb',
+                // called when the resource is loaded
+                function ( gltf ) {
+                    scene.add( gltf.scene );
+                    // scene.add( gltf.cameras[0]);
+                    camera = gltf.cameras[0];
+                    controls = new THREE.OrbitControls( camera, renderer.domElement );
+                    controls.rotateSpeed = 0.1;
+                    controls.autoRotate = true;
+                    controls.target.set( 0, 0, 0 );
+                    scene.add(camera);
+                    camera.updateProjectionMatrix();
+                    animate();
+                },
+                // called while loading is progressing
+                function ( xhr ) {
+                    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+                },
+                // called when loading has errors
+                function ( error ) {
+                    console.log( 'An error happened' );
+                    console.log(error);
+                }
+            );
+
+            function animate() {
+            // TWEEN.update();
+            requestAnimationFrame( animate );
+            controls.update();
+            renderer.render( scene, camera );
+            }
+
+        </script>
+    </body>
+</html>
