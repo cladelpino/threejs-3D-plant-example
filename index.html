@@ -17,6 +17,8 @@
             var scene = new THREE.Scene();
             var renderer = new THREE.WebGLRenderer({ alpha: true });
             renderer.setSize(1200,800);
+            var loadingNode = document.createElement("p");
+            document.body.appendChild(loadingNode);
             var rendererNode = document.body.appendChild( renderer.domElement );
             var controls;
             var camera;
@@ -69,7 +71,7 @@
                 },
                 // called while loading is progressing
                 function ( xhr ) {
-                    console.log(xhr);
+                    loadingNode.innerHTML = xhr.loaded + " bytes loaded...";
                     // console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
                 },
                 // called when loading has errors
